@@ -4,14 +4,12 @@ import csv
 
 # set file path
 election_data_csv = os.path.join('..', 'PyPoll', 'election_data.csv')
+path_output = os.path.join('..', 'PyPoll', 'election_data.txt')
 
 # set up different variables
 total_votes = 0
 candidate = ""
 candidate_votes = {}
-winners_votes = 0
-winner = ""
-candidate_percent = {}
 
 # open csv file
 with open(election_data_csv) as csvfile:
@@ -19,7 +17,7 @@ with open(election_data_csv) as csvfile:
 
     header = next(csvreader)
 
-    # start the loop for the data
+    # start the loop for total votes
     for line in csvreader:
         total_votes = total_votes + 1
         candidate = line[2]
@@ -31,13 +29,37 @@ with open(election_data_csv) as csvfile:
         else:
             candidate_votes[candidate] = 1
 
+# set variables for percent and winners
+winners_votes = 0
+winner = ""
+candidate_percent = {}
 
-output = (
-    f"\nElection Votes\n"
-    f"----------------------------------------\n"
-    f"Total Votes: {total_votes}\n"
-    f"----------------------------------------\n"
-)
+# start loop for list of candidates, percentage of votes, total votes, and winner
+for running_candidate, vote_tally in candidate_votes.items():
+    candidate_percent[running_candidate] = (vote_tally / total_votes)*100   
+    if vote_tally > winners_votes:
+        winners_votes = vote_tally
+        winner = running_candidate
 
-print(output)
+print("Election Results")
+print("----------------------------------------")
+print(f"Total Votes: {total_votes}")
+print("----------------------------------------")
+for running_candidate, vote_tally in candidate_votes.items():
+    print(f"{running_candidate}: {candidate_percent[running_candidate]}% ({vote_tally})")
+print("----------------------------------------")
+print(f"Winner: {winner}")
+print("----------------------------------------")
+
+# export text file
+with open(path_output, "w") as txt_file:
+    txt_file.write("Election Results")
+    txt_file.write("----------------------------------------")
+    txt_file.write(f"Total Votes: {total_votes}")
+    txt_file.write("----------------------------------------")
+    for running_candidate, vote_tally in candidate_votes.items():
+        txt_file.write(f"{running_candidate}: {candidate_percent[running_candidate]}% ({vote_tally})")
+    txt_file.write("----------------------------------------")
+    txt_file.write(f"Winner: {winner}")
+    txt_file.write("----------------------------------------")
       
