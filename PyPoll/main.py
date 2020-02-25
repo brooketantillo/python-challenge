@@ -53,13 +53,13 @@ print("----------------------------------------")
 
 # export text file
 with open(path_output, "w") as txt_file:
-    txt_file.write("Election Results")
-    txt_file.write("----------------------------------------")
-    txt_file.write(f"Total Votes: {total_votes}")
-    txt_file.write("----------------------------------------")
+    txt_file.write("Election Results\n")
+    txt_file.write("----------------------------------------\n")
+    txt_file.write(f"Total Votes: {total_votes}\n")
+    txt_file.write("----------------------------------------\n")
     for running_candidate, vote_tally in candidate_votes.items():
-        txt_file.write(f"{running_candidate}: {candidate_percent[running_candidate]}% ({vote_tally})")
-    txt_file.write("----------------------------------------")
-    txt_file.write(f"Winner: {winner}")
-    txt_file.write("----------------------------------------")
+        txt_file.write(f"{running_candidate}: {candidate_percent[running_candidate]}% ({vote_tally})\n")
+    txt_file.write("----------------------------------------\n")
+    txt_file.write(f"Winner: {winner}\n")
+    txt_file.write("----------------------------------------\n")
       
